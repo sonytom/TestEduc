@@ -1,0 +1,56 @@
+CREATE TABLE Aluno (
+    ID int,
+    nome varchar(255)
+);
+
+CREATE TABLE Responsavel (
+    ID int,
+    nome varchar(255)
+);
+
+
+CREATE TABLE Parentesco (
+    IDResponsavel int,
+    IDParentesco int,
+    Parentesco varchar(255)
+);
+
+
+INSERT INTO Aluno (ID,nome) VALUES (
+  '1',
+  'Lucas'
+); SELECT * FROM Aluno;
+
+INSERT INTO Responsavel (ID,nome) VALUES (
+  '1',
+  'Pablo'
+); SELECT * FROM Responsavel;
+
+
+INSERT INTO Responsavel (ID,nome) VALUES (
+  '2',
+  'Brenda'
+); 
+
+INSERT INTO Parentesco (IDResponsavel,IDParentesco,Parentesco) VALUES (
+  '1',
+  '1',
+  'Pai'
+); SELECT * FROM Parentesco;
+
+INSERT INTO Parentesco (IDResponsavel,IDParentesco,Parentesco) VALUES (
+  '2',
+  '1',
+  'Mae'
+);
+
+SELECT Aluno.nome As 'Aluno',Responsavel.nome As 'Responsavel', Parentesco.Parentesco 
+AS 'Parentesco',secondResponsavel.nome As 'Responsavel',secondName.Parentesco
+FROM ((((Aluno
+INNER JOIN Parentesco ON Aluno.ID = Parentesco.IDResponsavel)
+INNER JOIN Responsavel ON Aluno.ID = Responsavel.ID)
+INNER JOIN Responsavel as secondResponsavel ON Aluno.ID = Responsavel.ID)
+INNER JOIN Parentesco as secondName ON Aluno.ID = Parentesco.IDResponsavel) 
+WHERE secondResponsavel.ID= '2' AND secondName.IDResponsavel ='2'
+ORDER by Responsavel ASC
+
